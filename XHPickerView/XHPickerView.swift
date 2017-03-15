@@ -10,21 +10,24 @@ import UIKit
 
 class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    let ScreenWidth = UIScreen.main.bounds.width
+    let ScreenHeight = UIScreen.main.bounds.height
+    let ContainerViewHeight = CGFloat(176)
+    let TopViewHeight = CGFloat(44)
+    
+    let bgColor = UIColor(red: 0.412, green: 0.412, blue: 0.412, alpha: 0.7)
+    
     var title = ""
-    
     var sureString = ""
-    
     var dataArray = [String]()
-    
+    var selectedString = ""
+
     var titleLabel = UILabel()
-    
     var sureButton = UIButton()
     
     var selectedHandler: ((_ str: String) -> Void)?
     
-    var selectedString = ""
 
-    
     
     class func showPickerView(view: UIView, title: String, sureString: String, array: [String], selectedString: String, selectedHandler: ((_ string: String) -> Void)?) {
         
@@ -41,37 +44,41 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(red: 0.412, green: 0.412, blue: 0.412, alpha: 0.7)
+        backgroundColor = bgColor
         
-        let containerView = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 176, width: UIScreen.main.bounds.width, height: 176))
+        let containerView = UIView(frame: CGRect(x: 0, y: ScreenHeight - ContainerViewHeight, width: ScreenWidth, height: ContainerViewHeight))
         containerView.backgroundColor = UIColor.white
         addSubview(containerView)
         
+        let topView = UIView(frame: CGRect(x: 0, y: 0, width: containerView.bounds.width, height: TopViewHeight))
+        topView.backgroundColor = UIColor.lightGray
+        containerView.addSubview(topView)
         
-        titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: containerView.bounds.width, height: 44))
+        titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: topView.bounds.width, height: TopViewHeight))
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
         titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor.lightGray
-        containerView.addSubview(titleLabel)
+        topView.addSubview(titleLabel)
         
-        
-        let cancelButton = UIButton(frame: CGRect(x: 15, y: 15, width: 13, height: 13))
+        let cancelButton = UIButton(type: .custom)
+        cancelButton.frame = CGRect(x: 15, y: 15, width: 13, height: 13)
         cancelButton.setImage(UIImage(named: "allocation_close"), for: .normal)
         cancelButton.setTitleColor(UIColor.blue, for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
-        containerView.addSubview(cancelButton)
+        topView.addSubview(cancelButton)
         
-        
-        sureButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 60, y: 10, width: 46, height: 30))
-        sureButton.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
+        sureButton = UIButton(type: .custom)
+        sureButton.frame = CGRect(x: topView.bounds.width - 60, y: 10, width: 46, height: 30)
+        sureButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         sureButton.setTitleColor(UIColor.green, for: .normal)
         sureButton.addTarget(self, action: #selector(sureButtonClicked), for: .touchUpInside)
-        containerView.addSubview(sureButton)
+        topView.addSubview(sureButton)
         
-        
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 176 - 44))
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: TopViewHeight, width: ScreenWidth, height: ContainerViewHeight - TopViewHeight))
         pickerView.backgroundColor = UIColor.white
         pickerView.delegate = self;
         pickerView.dataSource = self;
+        pickerView.autoresizingMask = .flexibleWidth
+        pickerView.showsSelectionIndicator = true
         containerView.addSubview(pickerView)
     }
     
@@ -105,21 +112,28 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         titleLabel.text = title
         sureButton.setTitle(sureString, for: .normal)
-
-        // 设置分割线的颜色
+        
+        // 自定义分隔线属性
         for v in pickerView.subviews {
             if v.frame.size.height < 1 {
+                v.frame.origin.x = 100
+                v.frame.size.width = ScreenWidth - 200
+//                v.frame.size.height = 1
                 v.backgroundColor = UIColor.lightGray
             }
         }
         
-        let lb = UILabel()
-        lb.font = UIFont.systemFont(ofSize: 18.0)
-        lb.textColor = UIColor.green
-        lb.textAlignment = .center
-        lb.text = dataArray[row]
-
-        return lb
+        // 自定义行属性
+        var label = view as? UILabel
+        if label == nil {
+            label = UILabel()
+        }
+        label!.font = UIFont.systemFont(ofSize: 18)
+        label!.textColor = UIColor.blue
+        label!.textAlignment = .center
+        label!.text = dataArray[row]
+    
+        return label!
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

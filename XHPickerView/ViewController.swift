@@ -20,12 +20,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        array = ["菜菜", "金刚", "星云", "浪客", "鱼头"]
+        array = ["Swift", "Objective-C", "C", "JAVA", "PHP"]
     }
 
     @IBAction func showPickView(_ sender: Any) {
         
-        XHPickerView.showPickerView(view: view, title: "你最喜欢谁？", sureString: "确定", array: array, selectedString: lb.text!) { (string: String) in
+        XHPickerView.showPickerView(view: view, title: "你最喜欢哪种语言？", sureString: "确定", array: array, selectedString: lb.text!) { (string: String) in
             
             // 赋值
             self.lb.text = string
