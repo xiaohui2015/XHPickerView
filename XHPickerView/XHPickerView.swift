@@ -12,16 +12,23 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let ScreenWidth = UIScreen.main.bounds.width
     let ScreenHeight = UIScreen.main.bounds.height
-    let ContainerViewHeight = CGFloat(176)
+    let ContainerViewHeight = CGFloat(179)
     let TopViewHeight = CGFloat(44)
     
     let bgColor = UIColor(red: 0.412, green: 0.412, blue: 0.412, alpha: 0.7)
     
     var title = ""
     var sureString = ""
-    var dataArray = [String]()
+    var dataArray = [String]() {
+        didSet {
+            pickerView.selectRow(2, inComponent: 0, animated: true)
+        }
+    }
     var selectedString = ""
-
+    var selectedRow = 0
+    
+    
+    var pickerView = UIPickerView()
     var titleLabel = UILabel()
     var sureButton = UIButton()
     
@@ -29,14 +36,15 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
 
     
-    class func showPickerView(view: UIView, title: String, sureString: String, array: [String], selectedString: String, selectedHandler: ((_ string: String) -> Void)?) {
+    class func showPickerView(view: UIView, title: String, sureString: String, array: [String], selectedString: String, selectedRow: Int, selectedHandler: ((_ string: String) -> Void)?) {
         
         let pickerView = XHPickerView(frame: view.bounds)
         pickerView.title = title
         pickerView.sureString = sureString
         pickerView.dataArray = array
         pickerView.selectedHandler = selectedHandler
-        pickerView.selectedString = array[0]
+        pickerView.selectedString = array[selectedRow]
+//        pickerView.selectedRow = selectedRow
 //        pickerView.selectedHandler!(array[0])
         view.addSubview(pickerView)
     }
@@ -73,7 +81,7 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         sureButton.addTarget(self, action: #selector(sureButtonClicked), for: .touchUpInside)
         topView.addSubview(sureButton)
         
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: TopViewHeight, width: ScreenWidth, height: ContainerViewHeight - TopViewHeight))
+        pickerView = UIPickerView(frame: CGRect(x: 0, y: TopViewHeight, width: ScreenWidth, height: ContainerViewHeight - TopViewHeight))
         pickerView.backgroundColor = UIColor.white
         pickerView.delegate = self;
         pickerView.dataSource = self;
@@ -105,19 +113,19 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 44
+        return 47
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
+
         titleLabel.text = title
         sureButton.setTitle(sureString, for: .normal)
         
         // 自定义分隔线属性
         for v in pickerView.subviews {
             if v.frame.size.height < 1 {
-                v.frame.origin.x = 100
-                v.frame.size.width = ScreenWidth - 200
+//                v.frame.origin.x = 100
+//                v.frame.size.width = ScreenWidth - 200
 //                v.frame.size.height = 1
                 v.backgroundColor = UIColor.lightGray
             }
@@ -132,7 +140,7 @@ class XHPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         label!.textColor = UIColor.blue
         label!.textAlignment = .center
         label!.text = dataArray[row]
-    
+        
         return label!
     }
     

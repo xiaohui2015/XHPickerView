@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BB7CFA71E793B4C00F0C6E9 /* XHTVSelectMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB7CFA61E793B4C00F0C6E9 /* XHTVSelectMenu.swift */; };
 		4BEE73211E77B344006F7D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE73201E77B344006F7D35 /* AppDelegate.swift */; };
 		4BEE73231E77B344006F7D35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE73221E77B344006F7D35 /* ViewController.swift */; };
 		4BEE73261E77B344006F7D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BEE73241E77B344006F7D35 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BB7CFA61E793B4C00F0C6E9 /* XHTVSelectMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHTVSelectMenu.swift; sourceTree = "<group>"; };
 		4BEE731D1E77B344006F7D35 /* XHPickerView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XHPickerView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BEE73201E77B344006F7D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BEE73221E77B344006F7D35 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				4BEE73201E77B344006F7D35 /* AppDelegate.swift */,
 				4BEE73221E77B344006F7D35 /* ViewController.swift */,
 				4BEE73501E77B893006F7D35 /* XHPickerView.swift */,
+				4BB7CFA61E793B4C00F0C6E9 /* XHTVSelectMenu.swift */,
 				4BEE73241E77B344006F7D35 /* Main.storyboard */,
 				4BEE73271E77B344006F7D35 /* Assets.xcassets */,
 				4BEE73291E77B344006F7D35 /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 			files = (
 				4BEE73231E77B344006F7D35 /* ViewController.swift in Sources */,
 				4BEE73211E77B344006F7D35 /* AppDelegate.swift in Sources */,
+				4BB7CFA71E793B4C00F0C6E9 /* XHTVSelectMenu.swift in Sources */,
 				4BEE73511E77B893006F7D35 /* XHPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

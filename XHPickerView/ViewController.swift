@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 
     @IBAction func showPickView(_ sender: Any) {
         
-        XHPickerView.showPickerView(view: view, title: "你最喜欢哪种语言？", sureString: "确定", array: array, selectedString: lb.text!) { (string: String) in
+        XHPickerView.showPickerView(view: view, title: "你最喜欢哪种语言？", sureString: "确定", array: array, selectedString: lb.text!, selectedRow: 2) { (string: String) in
             
             // 赋值
             self.lb.text = string
